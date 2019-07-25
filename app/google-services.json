@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "327089207421",
+    "firebase_url": "https://textconverter-bc3be.firebaseio.com",
+    "project_id": "textconverter-bc3be",
+    "storage_bucket": "textconverter-bc3be.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:327089207421:android:d1d06244f09d5e54",
+        "android_client_info": {
+          "package_name": "com.wolfmobileapps.textconverter"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "327089207421-fhmtd0qs5t0e9emdf57hrurd6jqh2rfq.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.wolfmobileapps.textconverter",
+            "certificate_hash": "75f179d8acb756a978069302282204015a31262a"
+          }
+        },
+        {
+          "client_id": "327089207421-c5sfhnanr37pd9nut14im8qf5pa08b43.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyANchc5_EiUe5NWYgDgzu1ff2SN9OvXOA0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "327089207421-c5sfhnanr37pd9nut14im8qf5pa08b43.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Tłumacz tekstu ze zdjęcia</string>
+
+    <string-array name="language_chose">
+
+        <item>Angielski</item>
+        <item>Arabski</item>
+        <item>Bułgarski</item>
+        <item>Chiński(Tradycyjny)</item>
+        <item>Chiński(Uproszczony)</item>
+        <item>Chorwacki</item>
+        <item>Czeski</item>
+        <item>Duński</item>
+        <item>Fiński</item>
+        <item>Francuski</item>
+        <item>Grecki</item>
+        <item>Hiszpański</item>
+        <item>Holenderski</item>
+        <item>Japoński</item>
+        <item>Koreański</item>
+        <item>Niemiecki</item>
+        <item>Polski</item>
+        <item>Portugalski</item>
+        <item>Rosyjski</item>
+        <item>Słoweński</item>
+        <item>Szwedzki</item>
+        <item>Turecki</item>
+        <item>Węgierski</item>
+        <item>Włoski</item>
+
+    </string-array>
+
+    <string name="Can_not_save_data_on_server">Nie można zapisać danych na serwerze</string>
+    <string name="about">O aplikacji</string>
+    <string name="app_description">Opis działania aplikacji</string>
+    <string name="application_developer">Autor aplikacji</string>
+    <string name="description">Opis</string>
+    <string name="External_storage_not_available">Pamięć telefonu nie jest dostępna</string>
+    <string name="First_take_photo">Najpierw pobierz zdjęcie</string>
+    <string name="general">Ogólne</string>
+    <string name="info">Info</string>
+    <string name="infoApp">Info</string>
+    <string name="infoAppDescription">Autor aplikacji:  www.wolfmobileapps.com</string>
+    <string name="Photo_saved">Zdjęcie zapisano</string>
+    <string name="Saving_data_on_server">Zapis danych na serwerze....</string>
+    <string name="settings">Ustawienia</string>
+    <string name="Text_not_found">Nie znaleziono tekstu</string>
+    <string name="Translating">Tłumaczenie…</string>
+    <string name="Translator_Error">Błąd tłumacza</string>
+    <string name="Translator_not_respond">Tłumacz nie odpowiada</string>
+    <string name="version">Versja</string>
+    <string name="Wait_while_decoding">Dekodowanie tekstu…</string>
+    <string name="Text_saved">Tekst skopiowany</string>
+    <string name="Set_the_text_horizontally">Ustaw tekst poziomo</string>
+    <string name="Image">Zdjęcie</string>
+    <string name="decode">Dekoduj</string>
+    <string name="text_on_photo">"Tekst na zdjęciu: "</string>
+    <string name="text_translated_to">"Tekst tłumaczony na: "</string>
+    <string name="text_translated">"Tekst przetłumaczony: "</string>
+    <string name="app_work_description">1. Zdjęcia są zmniejszane do max 1Mb. Oszczedza to transfer i poprawia szybkość działania. \n\n
+2. Limit wynosi 500 zapytań/dzień na każdy adres IP.\n\n
+3. Obsługiwane języki:\n
+Angielski\n
+Arabski\n
+Bułgarski\n
+Chiński(Uproszczony)\n
+Chiński(Tradycyjny)\n
+Chorwacki\n
+Czeski\n
+Duński\n
+Fiński\n
+Francuski\n
+Grecki\n
+Hiszpański\n
+Holenderski\n
+Japoński\n
+Koreański\n
+Niemiecki\n
+Polski\n
+Portugalski\n
+Rosyjski\n
+Słoweński\n
+Szwedzki\n
+Turecki\n
+Węgierski\n
+Włoski\n</string>
+
+
+
+
+
+</resources>
