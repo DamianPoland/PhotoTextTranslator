@@ -5,6 +5,7 @@ import android.app.ProgressDialog;
 import android.content.ClipData;
 import android.content.ClipboardManager;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
@@ -104,14 +105,13 @@ public class MainActivity extends AppCompatActivity implements InterfaceToShowSe
     private TextView textViewResultTranslatedLanguage;
     private ImageView imageViewPhoto;
     private ImageView imageViewCopyAndSaveOrigin;
-    private ImageView imageViewCopyAndSaveTranslated;
     private LinearLayout linearLayoutImageAndPoweredYandex;
     private ProgressDialog mProgressDialog;
     private TextView textViewLanguageOnPhotoTakeFromShar;
     private TextView textViewLanguageToTranslateTakeFromShar;
 
-
     // do permissions
+    private String[] permisionas;
     private static final int PERMISSION_ALL = 101; //stała do permission
     private static final int RC_PHOTO_PICKER = 102; //stała do permission
     private static final int REQUEST_IMAGE_CAPTURE = 103; //stała do permission
@@ -160,7 +160,7 @@ public class MainActivity extends AppCompatActivity implements InterfaceToShowSe
         ImageView button_call_api = findViewById(R.id.image_view_call_api);
         ImageView imageViewRotate = findViewById(R.id.imageViewRotate);
         imageViewCopyAndSaveOrigin = findViewById(R.id.imageViewCopyAndSaveOrigin);
-        imageViewCopyAndSaveTranslated = findViewById(R.id.imageViewCopyAndSaveTranslated);
+        ImageView imageViewCopyAndSaveTranslated = findViewById(R.id.imageViewCopyAndSaveTranslated);
         imageViewPhoto = findViewById(R.id.imageViewPhoto);
         textViewResult = findViewById(R.id.textViewResult);
         textViewResultLanguage = findViewById(R.id.textViewResultLanguage);
@@ -173,7 +173,7 @@ public class MainActivity extends AppCompatActivity implements InterfaceToShowSe
         TextView poweredYandex = findViewById(R.id.textViewPoweredYandex);
 
         // do persmissions
-        String[] permisionas = {Manifest.permission.CAMERA, Manifest.permission.WRITE_EXTERNAL_STORAGE};
+        permisionas = new String[]{Manifest.permission.CAMERA, Manifest.permission.WRITE_EXTERNAL_STORAGE};
         if (!hasPermissions(this, permisionas)) {
             ActivityCompat.requestPermissions(this, permisionas, PERMISSION_ALL);
         }
@@ -204,14 +204,6 @@ public class MainActivity extends AppCompatActivity implements InterfaceToShowSe
                     e.printStackTrace();
                 }
             }
-        }
-
-        //tworzy folder na dysku telefonu
-        if (isExternalStorageWritable()) {
-            File myDirectory = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES), MainActivity.this.getResources().getString(R.string.app_name));
-            myDirectory.mkdir();
-        } else {
-            Toast.makeText(this, MainActivity.this.getResources().getString(R.string.External_storage_not_available), Toast.LENGTH_SHORT).show();
         }
 
         // instancja shared pref
@@ -258,6 +250,20 @@ public class MainActivity extends AppCompatActivity implements InterfaceToShowSe
         buttonTakePicture.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
+                //sprawdzenie permissions
+                if (!hasPermissions(MainActivity.this, permisionas)) {
+                    ActivityCompat.requestPermissions(MainActivity.this, permisionas, PERMISSION_ALL);
+                    return;
+                }
+
+                //tworzy folder na dysku telefonu - żeby utworzył to muszą być dane permissions
+                Boolean checkDirectory = makeDirectoryOnHardDrive();
+                if (!checkDirectory){
+                    return;
+                }
+
+                //metoda
                 takePhotoFromStorage();
             }
         });
@@ -266,6 +272,20 @@ public class MainActivity extends AppCompatActivity implements InterfaceToShowSe
         buttonOpenCamera.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
+                //sprawdzenie permissions
+                if (!hasPermissions(MainActivity.this, permisionas)) {
+                    ActivityCompat.requestPermissions(MainActivity.this, permisionas, PERMISSION_ALL);
+                    return;
+                }
+
+                //tworzy folder na dysku telefonu - żeby utworzył to muszą być dane permissions
+                Boolean checkDirectory = makeDirectoryOnHardDrive();
+                if (!checkDirectory){
+                    return;
+                }
+
+                //metoda
                 dispatchTakePictureIntent();
             }
         });
@@ -349,6 +369,18 @@ public class MainActivity extends AppCompatActivity implements InterfaceToShowSe
             }
         });
 
+    }
+
+    //tworzy folder na dysku telefonu - żeby utworzył to muszą być dane permissions
+    private boolean makeDirectoryOnHardDrive() {
+        if (isExternalStorageWritable()) {
+            File myDirectory = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES), MainActivity.this.getResources().getString(R.string.app_name));
+            myDirectory.mkdir();
+            return true;
+        } else {
+            Toast.makeText(MainActivity.this, MainActivity.this.getResources().getString(R.string.External_storage_not_available), Toast.LENGTH_SHORT).show();
+        }
+        return false;
     }
 
     // ustwia text w textView z informacją o językach
@@ -672,6 +704,12 @@ public class MainActivity extends AppCompatActivity implements InterfaceToShowSe
         mProgressDialog.setTitle(MainActivity.this.getResources().getString(R.string.Wait_while_decoding));
         mProgressDialog.setCanceledOnTouchOutside(false);
         mProgressDialog.setCancelable(false);
+        mProgressDialog.setButton(DialogInterface.BUTTON_NEGATIVE, "Cancel", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.dismiss();
+            }
+        });
         mProgressDialog.show();
 
         mStorageReference.child(shar.getString(SHAR_PREF_KEY_PERSONAL_ID, "personal ID not created") + ".jpg").putFile(imageUri).addOnSuccessListener(this, new OnSuccessListener<UploadTask.TaskSnapshot>() {
