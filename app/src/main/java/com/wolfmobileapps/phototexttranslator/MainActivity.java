@@ -704,7 +704,7 @@ public class MainActivity extends AppCompatActivity implements InterfaceToShowSe
         mProgressDialog.setTitle(MainActivity.this.getResources().getString(R.string.Wait_while_decoding));
         mProgressDialog.setCanceledOnTouchOutside(false);
         mProgressDialog.setCancelable(false);
-        mProgressDialog.setButton(DialogInterface.BUTTON_NEGATIVE, "Cancel", new DialogInterface.OnClickListener() {
+        mProgressDialog.setButton(DialogInterface.BUTTON_NEGATIVE, getString(R.string.Cancel), new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 dialog.dismiss();

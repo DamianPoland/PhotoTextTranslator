@@ -49,7 +49,7 @@
     <string name="Translating">Tłumaczenie…</string>
     <string name="Translator_Error">Błąd tłumacza</string>
     <string name="Translator_not_respond">Tłumacz nie odpowiada</string>
-    <string name="version">Versja</string>
+    <string name="version">Wersja</string>
     <string name="Wait_while_decoding">Dekodowanie tekstu…</string>
     <string name="Text_saved">Tekst skopiowany</string>
     <string name="Set_the_text_horizontally">Ustaw tekst poziomo</string>
@@ -85,9 +85,7 @@ Szwedzki\n
 Turecki\n
 Węgierski\n
 Włoski\n</string>
-
-
-
+    <string name="Cancel">Anuluj</string>
 
 
 </resources>
