@@ -16,8 +16,10 @@ import android.os.Environment;
 import android.os.StrictMode;
 import android.provider.MediaStore;
 import android.provider.Settings;
-import android.support.v4.app.ActivityCompat;
-import android.support.v7.app.AppCompatActivity;
+
+import androidx.core.app.ActivityCompat;
+import androidx.appcompat.app.AppCompatActivity;
+
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
@@ -28,6 +30,10 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdView;
+import com.google.android.gms.ads.InterstitialAd;
+import com.google.android.gms.ads.MobileAds;
 import com.google.android.gms.tasks.OnCanceledListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
@@ -122,6 +128,7 @@ public class MainActivity extends AppCompatActivity implements InterfaceToShowSe
     private Uri imageUriFinal = null; // ścieżka Uri zdjęcia po skompresowaniu, zapisaniu nowego zdjęcia na dysku i przygotowaniu do wysłąnia do firebase
     private String fileName = null;
     private Bitmap imageBitmap = null; //zdjęcie zapisane tu te pobrane z aparatu lub dysku i skompresowane jeśli trzeba
+    private int imageCompressQuality = 100;
 
     //do firebase
     private StorageReference mStorageReference;
@@ -148,6 +155,14 @@ public class MainActivity extends AppCompatActivity implements InterfaceToShowSe
     private String languagePhoto; //jeżyk do tłumaczenia z obrazka na text
     private String languageTranslationFrom; //jeżyk z którego bedzie tłumaczenie czyli ten sam co languagePhoto ale inaczej oznaczony bo inne API
     private String languageTranslationTo; // jezyk na który będzie tłumaczony z languageTranslationFrom
+
+    // do reklam
+    public static final String APP_ID = "ca-app-pub-1490567689734833~8586941039"; //nie zmieniać
+    public static final String REKLAMA_PELNOEKRANOWA_ID = "ca-app-pub-1490567689734833/5577634311"; // mój  ca-app-pub-1490567689734833/5577634311 (przykładowy do testów ca-app-pub-3940256099942544/1033173712)
+    public static final String BANNER_ID = "ca-app-pub-1490567689734833/5193016154"; // przed wysłaniem do Google Play zmienić w XML w portrait i land na to ( testowy to ca-app-pub-3940256099942544/6300978111)
+    private InterstitialAd mInterstitialAd;
+    private boolean shouldLoadAds; // żeby reklamy nie pokazywały się po wyłaczeniu aplikacji - tylko do intestitialAds - NIE URZYTE JEST JESZCZE
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -237,6 +252,18 @@ public class MainActivity extends AppCompatActivity implements InterfaceToShowSe
         //do firebase
         mStorageReference = FirebaseStorage.getInstance().getReference("myPhotos");
 
+        //do reklamy pełnoekranowej
+        MobileAds.initialize(this); //inicjalizacja reklam potrzebna tylko raz na całą aplikację
+        mInterstitialAd = new InterstitialAd(this); // instancja danej reklamy
+        mInterstitialAd.setAdUnitId(REKLAMA_PELNOEKRANOWA_ID); //wpisać ID danej reklamy czyli identyfikator jednostki reklamowej wzięty z AdMOB (do testów korzystać tylko z przykładowego czyli: ca-app-pub-3940256099942544/1033173712)
+        mInterstitialAd.loadAd(new AdRequest.Builder().build()); // ładuje reklamę to chwile potrwa więc od razu może nie pokazać bo nie będzie załadowana dlatego trzeba dodać listenera jak niżej
+
+        //do reklamy banner
+        AdView mAdView;
+        mAdView = findViewById(R.id.adView);
+        AdRequest adRequest = new AdRequest.Builder().build();
+        mAdView.loadAd(adRequest);
+
 
         // ustawienie textu z językami jakko klikalnego żeby otworzyć setings
         lineraLayoutLangugageInfo.setOnClickListener(new View.OnClickListener() {
@@ -259,7 +286,7 @@ public class MainActivity extends AppCompatActivity implements InterfaceToShowSe
 
                 //tworzy folder na dysku telefonu - żeby utworzył to muszą być dane permissions
                 Boolean checkDirectory = makeDirectoryOnHardDrive();
-                if (!checkDirectory){
+                if (!checkDirectory) {
                     return;
                 }
 
@@ -281,7 +308,7 @@ public class MainActivity extends AppCompatActivity implements InterfaceToShowSe
 
                 //tworzy folder na dysku telefonu - żeby utworzył to muszą być dane permissions
                 Boolean checkDirectory = makeDirectoryOnHardDrive();
-                if (!checkDirectory){
+                if (!checkDirectory) {
                     return;
                 }
 
@@ -369,6 +396,16 @@ public class MainActivity extends AppCompatActivity implements InterfaceToShowSe
             }
         });
 
+    }
+
+    //pokazuje reklamę
+    private void showAddFullScrean() {
+        if (mInterstitialAd.isLoaded()) { // potrzeba bo reklama może nie zdążyć się załadować przed pokazaniem
+            mInterstitialAd.show(); //pokazuje reklamę
+        } else {
+            Log.d("TAG", "The interstitial wasn't loaded yet.");
+        }
+        mInterstitialAd.loadAd(new AdRequest.Builder().build()); // ładuje reklamę to chwile potrwa więc od razu może nie pokazać bo nie będzie załadowana dlatego trzeba dodać listenera jak niżej
     }
 
     //tworzy folder na dysku telefonu - żeby utworzył to muszą być dane permissions
@@ -625,6 +662,8 @@ public class MainActivity extends AppCompatActivity implements InterfaceToShowSe
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 
+        showAddFullScrean(); //ładuje reklamę pełnoekranową
+
         if (resultCode != RESULT_OK) { //po to aby jak sie cofnie do aplikacji bez pobrania zdjęcia się nie wywalało
             return;
         }
@@ -651,7 +690,7 @@ public class MainActivity extends AppCompatActivity implements InterfaceToShowSe
         //metoda do zmniejszenia zdjęcia poniżej 1MB ( darmowe API tylko do 1MB) i zapisania na dysku
         Date currentDate = new Date(System.currentTimeMillis()); //System.currentTimeMillis()-long
         fileName = new SimpleDateFormat("yyyyMMdd_HH.mm.ss").format(currentDate) + ".jpg";
-        writeFile(fileName, 100); //metoda do zapisania pliku
+        writeFile(fileName, imageCompressQuality); //metoda do zapisania pliku
     }
 
     //metoda do zmniejszenia zdjęcia poniżej 1MB ( darmowe API tylko do 1MB), zapisania na dysku i ustawienia do imageViewPhoto
@@ -662,6 +701,8 @@ public class MainActivity extends AppCompatActivity implements InterfaceToShowSe
             Toast.makeText(this, MainActivity.this.getResources().getString(R.string.External_storage_not_available), Toast.LENGTH_SHORT).show();
             return;
         }
+
+        Log.d(TAG, "writeFile: po if");
 
         //tworzy w katalogu Pictures katalog z nazwą aplikacji i ścieżkę do pliku na dysku do pliku
         File file = new File(Environment.getExternalStoragePublicDirectory(
@@ -679,10 +720,16 @@ public class MainActivity extends AppCompatActivity implements InterfaceToShowSe
         //zmniejsza jakość zdjęcia o 50% jeśli zdjęcie jest wieksze od 1MB - bo darmowe API nie przyjmuje zdjęć większych niż 1MB
         long imageSize = file.length() / 1024; // wielkośc w kB
         if (imageSize > 1000) {
-            writeFile(fileNameGotFromCall, 50);
-            Log.d(TAG, "onActivityResult: image size: " + imageSize);
-            return;
+
+            //zwiększa kompresję o 10% za każdym razem jak wpadnie do ifa
+            imageCompressQuality = imageCompressQuality - 10;
+            if (imageCompressQuality == 0) { //zabezpieczenie żeby nie było = 0
+                imageCompressQuality = 1;
+            }
+            Log.d(TAG, "onActivityResult: image size: " + imageSize + "  ,imageCompressQuality = " + imageCompressQuality);
+            writeFile(fileNameGotFromCall, imageCompressQuality);
         }
+        imageCompressQuality = 100; // zmienia kompresję na domyślną
         Log.d(TAG, "onActivityResult: image size: " + imageSize);
 
         imageUriFinal = Uri.parse("file://" + file.toString());
