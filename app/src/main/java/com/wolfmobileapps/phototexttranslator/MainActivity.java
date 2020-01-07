@@ -25,6 +25,7 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -172,7 +173,7 @@ public class MainActivity extends AppCompatActivity implements InterfaceToShowSe
         // views
         ImageView buttonTakePicture = findViewById(R.id.imageViewTakePicture);
         ImageView buttonOpenCamera = findViewById(R.id.imageViewOpenCamera);
-        ImageView button_call_api = findViewById(R.id.image_view_call_api);
+        Button button_call_api = findViewById(R.id.image_view_call_api);
         ImageView imageViewRotate = findViewById(R.id.imageViewRotate);
         imageViewCopyAndSaveOrigin = findViewById(R.id.imageViewCopyAndSaveOrigin);
         ImageView imageViewCopyAndSaveTranslated = findViewById(R.id.imageViewCopyAndSaveTranslated);
@@ -796,6 +797,7 @@ public class MainActivity extends AppCompatActivity implements InterfaceToShowSe
 
             //ustawienie widoczności ikonki do kopiowania tekstu oryginalnego
             imageViewCopyAndSaveOrigin.setVisibility(View.VISIBLE);
+
 
             JSONObject jsonObject = new JSONObject(response);
             JSONArray jsonArray = jsonObject.getJSONArray("ParsedResults");

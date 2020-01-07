@@ -100,8 +100,9 @@ limitations under the License.</string>
     <string name="Set_the_text_horizontally">Set the text horizontally</string>
     <string name="Image">Image</string>
     <string name="decode">Decode</string>
-    <string name="text_on_photo">Text on the photo: </string>
-    <string name="text_translated_to">Text translated to: </string>
+    <string name="text_on_photo">Text in the picture:</string>
+    <string name="set_text_on_photo">Set language in the picture:</string>
+    <string name="text_translated_to">Set translation to language:</string>
     <string name="text_translated">Translated text: </string>
     <string name="translation_powered_by_yandex" translatable="false">Translation powered by Yandex</string>
     <string name="app_work_description">1. Photos are resized to max 1Mb. Decreases used transfer. \n\n

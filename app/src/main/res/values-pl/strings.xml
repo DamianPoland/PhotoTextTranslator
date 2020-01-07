@@ -55,8 +55,8 @@
     <string name="Set_the_text_horizontally">Ustaw tekst poziomo</string>
     <string name="Image">Zdjęcie</string>
     <string name="decode">Dekoduj</string>
-    <string name="text_on_photo">"Tekst na zdjęciu: "</string>
-    <string name="text_translated_to">"Tekst tłumaczony na: "</string>
+    <string name="text_on_photo">Tekst na zdjęciu:</string>
+    <string name="text_translated_to">Ustaw tłumaczenie na język:</string>
     <string name="text_translated">"Tekst przetłumaczony: "</string>
     <string name="app_work_description">1. Zdjęcia są zmniejszane do max 1Mb. Oszczedza to transfer i poprawia szybkość działania. \n\n
 2. Limit wynosi 500 zapytań/dzień na każdy adres IP.\n\n
@@ -86,6 +86,7 @@ Turecki\n
 Węgierski\n
 Włoski\n</string>
     <string name="Cancel">Anuluj</string>
+    <string name="set_text_on_photo">Ustaw język na zdjęciu:</string>
 
 
 </resources>

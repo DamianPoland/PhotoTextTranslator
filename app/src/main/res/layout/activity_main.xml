@@ -13,6 +13,8 @@
         android:layout_height="40dp"
         android:layout_marginEnd="24dp"
         android:background="@drawable/item_selector"
+        android:padding="4dp"
+        android:elevation="16dp"
         app:layout_constraintBottom_toBottomOf="@+id/image_view_call_api"
         app:layout_constraintEnd_toStartOf="@+id/image_view_call_api"
         app:layout_constraintTop_toTopOf="@+id/image_view_call_api"
@@ -24,21 +26,24 @@
         android:layout_height="40dp"
         android:layout_marginStart="24dp"
         android:background="@drawable/item_selector"
+        android:padding="4dp"
+        android:elevation="16dp"
         app:layout_constraintBottom_toBottomOf="@+id/image_view_call_api"
         app:layout_constraintStart_toEndOf="@+id/image_view_call_api"
         app:layout_constraintTop_toTopOf="@+id/image_view_call_api"
         app:srcCompat="@drawable/icon_camera" />
 
-    <ImageView
+    <Button
         android:id="@+id/image_view_call_api"
-        android:layout_width="80dp"
-        android:layout_height="80dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
         android:layout_marginEnd="8dp"
-        android:background="@drawable/item_selector"
+        android:background="@drawable/button_custom"
+        android:text="@string/decode"
+        android:elevation="8dp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/icon_decode3" />
@@ -50,6 +55,7 @@
         android:layout_marginEnd="16dp"
         android:layout_marginBottom="8dp"
         android:background="@drawable/item_selector"
+        android:elevation="8dp"
         app:layout_constraintBottom_toTopOf="@+id/scrollView2"
         app:layout_constraintEnd_toEndOf="parent"
         app:srcCompat="@drawable/ic_rotate_right_white_24dp" />
@@ -60,7 +66,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
-        android:background="@drawable/item_selector"
+        android:background="@drawable/item_round_corners"
         android:orientation="vertical"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/image_view_call_api">
@@ -69,20 +75,23 @@
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:paddingTop="4dp"
+            android:paddingStart="4dp"
+            android:paddingEnd="4dp"
             android:orientation="horizontal">
 
             <TextView
                 android:id="@+id/textViewLanguageOnPhoto"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/text_on_photo"
-                android:textColor="@color/colorWhite" />
+                android:text="@string/set_text_on_photo"
+                android:textColor="@color/colorBlack" />
 
             <TextView
                 android:id="@+id/textViewLanguageOnPhotoTakeFromShar"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textColor="@color/colorWhite"
+                android:textColor="@color/colorBlack"
                 android:textStyle="bold"
 
                 tools:text="Empty" />
@@ -91,6 +100,9 @@
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:paddingBottom="4dp"
+            android:paddingStart="4dp"
+            android:paddingEnd="4dp"
             android:orientation="horizontal">
 
             <TextView
@@ -98,13 +110,13 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/text_translated_to"
-                android:textColor="@color/colorWhite" />
+                android:textColor="@color/colorBlack" />
 
             <TextView
                 android:id="@+id/textViewLanguageToTranslateTakeFromShar"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textColor="@color/colorWhite"
+                android:textColor="@color/colorBlack"
                 android:textStyle="bold"
                 tools:text="Empty" />
         </LinearLayout>

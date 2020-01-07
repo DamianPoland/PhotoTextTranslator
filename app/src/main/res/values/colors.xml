@@ -7,4 +7,16 @@
     <color name="color_background_my">#CFD8DC</color>
     <color name="color_background_main_my">#303F9F</color>
     <color name="color_clicable">#7986CB</color>
+
+
+
+    <color name="colorPrimaryDarkBlue900">#0D47A1</color>
+    <color name="colorPrimaryBlue600">#1E88E5</color>
+    <color name="colorPrimaryBrightBlue200">#90CAF9</color>
+    <color name="colorPrimaryWeryBrightBlue50">#E3F2FD</color>
+    <color name="colorAccentRed900">#B71C1C</color>
+    <color name="colorAccentBrightRed600">#E53935</color>
+    <color name="colorBackgroundGray200">#EEEEEE</color>
+    <color name="colorBackgroundGray500">#9E9E9E</color>
+    <color name="colorBlack">#000000</color>
 </resources>
